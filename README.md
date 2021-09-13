@@ -1,5 +1,10 @@
 # React Native Animated Multistep
 
+## Fork 変更内容
+
+- Props の `duration` が効かないので `durations` へ名称変更
+  - おそらく `Animatable.createAnimatableComponent` が `duration` Props を許可していない
+
 ## Preview
 
 ![GIF](previews/1.gif)
@@ -34,7 +39,7 @@ const allSteps = [
   { name: "step 1", component: Step1 },
   { name: "step 2", component: Step2 },
   { name: "step 3", component: Step3 },
-  { name: "step 4", component: Step4 }
+  { name: "step 4", component: Step4 },
 ];
 
 /* Define your class */
@@ -53,7 +58,7 @@ export default class App extends Component {
 
   /* define the method to be called when the wizard is finished */
 
-  finish = finalState => {
+  finish = (finalState) => {
     console.log(finalState);
   };
 
@@ -90,15 +95,15 @@ class step1 extends Component {
     super(props);
     this.state = {
       totalSteps: "",
-      currentStep: ""
+      currentStep: "",
     };
   }
 
-  static getDerivedStateFromProps = props => {
+  static getDerivedStateFromProps = (props) => {
     const { getTotalSteps, getCurrentStep } = props;
     return {
       totalSteps: getTotalSteps(),
-      currentStep: getCurrentStep()
+      currentStep: getCurrentStep(),
     };
   };
 
@@ -128,14 +133,14 @@ class step1 extends Component {
         </View>
         <TextInput
           style={styles.input}
-          onChangeText={text => this.setState({ text })}
+          onChangeText={(text) => this.setState({ text })}
           value={this.state.text}
           placeholder={"First Name"}
           placeholderTextColor="#fff"
         />
         <TextInput
           style={styles.input}
-          onChangeText={text => this.setState({ text })}
+          onChangeText={(text) => this.setState({ text })}
           value={this.state.text}
           placeholder={"Last Name"}
           placeholderTextColor="#fff"
@@ -199,8 +204,8 @@ Use this method to get total steps.
 | OutOnNext    | `String`   | define you animation type when the component goes out on next, default is `fadeOutRight` | ❌       |
 | comeInOnBack | `String`   | define you animation type when the component comes in on back, default is `fadeInRight`  | ❌       |
 | OutOnBack    | `String`   | define you animation type when the component goes out on next, default is `fadeOutLeft`  | ❌       |
-| duration    | `number`   | define you animation duration `duration`  | ❌       |
-| defaultState   | `Object`   | define your default state to use across the steps, default is `empty`   | ❌       |
+| duration     | `number`   | define you animation duration `duration`                                                 | ❌       |
+| defaultState | `Object`   | define your default state to use across the steps, default is `empty`                    | ❌       |
 
 ### Note:
 
@@ -213,7 +218,7 @@ you can add more animation and set-up animations by your own, check [react-nativ
 | `next()`           | `none`    | use this method to jump on next step                               |
 | `back()`           | `none`    | use this method to go back on previous step                        |
 | `saveState()`      | `Object`  | use this method to save your state, in order to get in other steps |
-| `resetState()`  | `none`    | use this method to for reset state                          |
+| `resetState()`     | `none`    | use this method to for reset state                                 |
 | `getState()`       | `none`    | use this method to get you saved state by `saveState()` method     |
 | `getCurrentStep()` | `none`    | use this method to get current step                                |
 | `getTotalSteps()`  | `none`    | use this method to get total steps                                 |
